@@ -12,9 +12,9 @@ import "fmt"
 
 // This slice represents the first week day of the month (1 to 7) in each month (slice position)
 // Starting with year 1901
-var year1901 = []int{3, 6, 6, 2, 4, 7, 2, 5, 1, 3, 6, 1}
+const year1901 = []int{3, 6, 6, 2, 4, 7, 2, 5, 1, 3, 6, 1}
 
-// Get total sundays that fall in the first of the month
+// Get total sundays that fall in the first day of the month
 func countFirstSundays(yearFirstDays []int) int {
 	total := 0
 	for _, i := range yearFirstDays {

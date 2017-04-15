@@ -11,8 +11,10 @@ package main
 import "fmt"
 
 // This slice represents the first week day of the month (1 to 7) in each month (slice position)
+// Starting with year 1901
 var year1901 = []int{3, 6, 6, 2, 4, 7, 2, 5, 1, 3, 6, 1}
 
+// Get total sundays that fall in the first of the month
 func countFirstSundays(yearFirstDays []int) int {
 	total := 0
 	for _, i := range yearFirstDays {
@@ -23,11 +25,13 @@ func countFirstSundays(yearFirstDays []int) int {
 	return total
 }
 
+// Check if year is leap
 func isLeapYear(year int) bool {
 	return (year % 4) == 0
 }
 
-func setNextYearFirstDay(yearDays *[]int, year int) {
+// Set array with values corresponding to days from respective year
+func setNextYearFirstDays(yearDays *[]int, year int) {
 	for month := range *yearDays {
 		if month == 1 && isLeapYear(year) {
 			(*yearDays)[month] += 2
@@ -36,7 +40,7 @@ func setNextYearFirstDay(yearDays *[]int, year int) {
 		}
 
 		if (*yearDays)[month] > 7 {
-			(*yearDays)[month] = (*yearDays)[month] - 7
+			(*yearDays)[month] -= 7
 		}
 	}
 }
@@ -44,12 +48,12 @@ func setNextYearFirstDay(yearDays *[]int, year int) {
 func main() {
 	totalSundays := 0
 
-	yearFirstDay := year1901
+	yearFirsMonthtDays := year1901
 
 	for year := 1901; year <= 2000; year++ {
-		totalSundays += countFirstSundays(yearFirstDay)
-		setNextYearFirstDay(&yearFirstDay, year)
+		totalSundays += countFirstSundays(yearFirsMonthtDays)
+		setNextYearFirstDays(&yearFirsMonthtDays, year)
 	}
 
-	fmt.Printf("total sundays: %d", totalSundays)
+	fmt.Printf("total sundays: %d\n\n", totalSundays)
 }

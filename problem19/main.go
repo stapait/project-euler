@@ -31,9 +31,9 @@ func isLeapYear(year int) bool {
 }
 
 // Get slice of first month days corresponding to next year
-func setNextYearFirstDays(yearDays *[]int, nextYear int) {
+func setNextYearFirstDays(yearDays *[]int, isNextYearLeap bool) {
 	for month := 1; month <= 12; month++ {
-		if month > 2 && isLeapYear(nextYear) {
+		if isNextYearLeap && month > 2 {
 			(*yearDays)[month-1] += 2
 		} else {
 			(*yearDays)[month-1]++
@@ -47,11 +47,11 @@ func setNextYearFirstDays(yearDays *[]int, nextYear int) {
 
 func main() {
 	totalSundays := 0
-	yearFirsMonthtDays := year1901
+	yearFirstMonthDays := year1901
 
 	for year := 1901; year <= 2000; year++ {
-		totalSundays += countFirstSundays(yearFirsMonthtDays)
-		setNextYearFirstDays(&yearFirsMonthtDays, year+1)
+		totalSundays += countFirstSundays(yearFirstMonthDays)
+		setNextYearFirstDays(&yearFirstMonthDays, isLeapYear(year+1))
 	}
 
 	fmt.Printf("total sundays: %d\n\n", totalSundays)
